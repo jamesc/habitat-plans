@@ -14,31 +14,29 @@ rule_files:
   # - "first.rules"
   # - "second.rules"
 
-# A scrape configuration containing exactly one endpoint to scrape:
-# Here it's Prometheus itself.
+# Monitor Prometheus itself.
 scrape_configs:
-  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
   - job_name: 'prometheus'
-  # scrape_interval defaults to the global default
-  # metrics_path defaults to '/metrics'
-  # scheme defaults to 'http'.
     static_configs:
     - targets: ['localhost:9090']
 
-{{#if cfg.scrape_configs}}
-{{#each cfg.scrape_configs}}
+{{~#if cfg.scrape_configs}}
+#
+# Custom Scrape configurations start here
+{{~#each cfg.scrape_configs}}
   - job_name: '{{job_name}}'
-    {{#if scrape_interval }}
+    {{~#if scrape_interval }}
     scrape_interval: {{scrape_interval}}
-    {{/if}}
-    {{#if scrape_timeout }}
+    {{~/if}}
+    {{~#if scrape_timeout }}
     scrape_timeout: {{scrape_timeout}}
-    {{/if}}
-    {{#if metrics_path }}
+    {{~/if}}
+    {{~#if metrics_path }}
     metrics_path: {{metrics_path}}
-    {{/if}}
+    {{~/if}}
+    {{~#if target}}
     static_configs:
       - targets: ['{{target}}']
+    {{~/if}}
 {{/each}}
-{{/if}}
-
+{{~/if}}
