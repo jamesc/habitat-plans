@@ -1,0 +1,9 @@
+#!/bin/sh
+
+PID_FILE="{{pkg.svc_path}}/PID"
+if [ -e ${PID_FILE} ]; then
+#  PID=$(cat $PID_FILE)
+#  echo "Reloading PID: ${PID}"
+#  kill -TERM ${PID}
+pkill -HUP hab-sup
+fi

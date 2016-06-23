@@ -1,0 +1,11 @@
+[global]
+scrape_interval = "15s"
+evaluation_interval = "15s"
+scrape_timeout = "10s"
+
+[global.labels]
+default_label = "codelab-monitor"
+
+# By default, no scrape configs
+[scrape_configs]
+

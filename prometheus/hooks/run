@@ -1,0 +1,8 @@
+#!/bin/sh
+
+{{pkg.path}}/sbin/prometheus \
+  -config.file {{pkg.svc_config_path}}/prometheus.yml \
+  -storage.local.path {{pkg.svc_data_path}} \
+  -web.console.libraries={{pkg.path}}/console_libraries \
+  -web.console.templates={{pkg.path}}/consoles \
+  2>&1

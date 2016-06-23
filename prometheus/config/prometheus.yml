@@ -1,0 +1,44 @@
+# my global config
+global:
+  scrape_interval: {{cfg.global.scrape_interval}}
+  evaluation_interval: {{cfg.global.evaluation_interval}}
+  scrape_timeout: {{cfg.global.scrape_timeout}}
+
+  # Attach these labels to any time series or alerts when communicating with
+  # external systems (federation, remote storage, Alertmanager).
+  external_labels:
+      monitor: '{{cfg.global.labels.default_label}}'
+
+# Load and evaluate rules in this file every 'evaluation_interval' seconds.
+rule_files:
+  # - "first.rules"
+  # - "second.rules"
+
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: 'prometheus'
+  # scrape_interval defaults to the global default
+  # metrics_path defaults to '/metrics'
+  # scheme defaults to 'http'.
+    static_configs:
+    - targets: ['localhost:9090']
+
+{{#if cfg.scrape_configs}}
+{{#each cfg.scrape_configs}}
+  - job_name: '{{job_name}}'
+    {{#if scrape_interval }}
+    scrape_interval: {{scrape_interval}}
+    {{/if}}
+    {{#if scrape_timeout }}
+    scrape_timeout: {{scrape_timeout}}
+    {{/if}}
+    {{#if metrics_path }}
+    metrics_path: {{metrics_path}}
+    {{/if}}
+    static_configs:
+      - targets: ['{{target}}']
+{{/each}}
+{{/if}}
+
