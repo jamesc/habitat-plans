@@ -1,6 +1,6 @@
 #!/bin/sh
 
-{{pkg.path}}/sbin/prometheus \
+exec {{pkg.path}}/sbin/prometheus \
   -config.file {{pkg.svc_config_path}}/prometheus.yml \
   -storage.local.path {{pkg.svc_data_path}} \
   -web.console.libraries={{pkg.path}}/console_libraries \
