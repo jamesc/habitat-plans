@@ -1,9 +1,9 @@
 #!/bin/sh
 
+# reconfigure hooks get called on first instantiation before service is running
+# So only signal a process if it's running
 PID_FILE="{{pkg.svc_path}}/PID"
 if [ -e ${PID_FILE} ]; then
-#  PID=$(cat $PID_FILE)
-#  echo "Reloading PID: ${PID}"
-#  kill -TERM ${PID}
-pkill -HUP hab-sup
+  # pkill through the supervisor since the PID might have changed
+  pkill -HUP hab-sup
 fi
