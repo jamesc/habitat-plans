@@ -11,6 +11,12 @@ pkg_dirname=${pkg_name}-${pkg_version}.linux-amd64
 
 pkg_bin_dirs=(sbin)
 
+pkg_svc_run="sbin/prometheus \
+  -config.file ${pkg_svc_config_path}/prometheus.yml \
+  -storage.local.path ${pkg_svc_data_path} \
+  -web.console.libraries=${pkg_svc_var_path}/console_libraries \
+  -web.console.templates=${pkg_svc_var_path}/consoles"
+
 pkg_expose=(9090)
 
 do_build() {

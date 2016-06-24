@@ -1,0 +1,4 @@
+#!/bin/sh
+
+ln -sf {{pkg.path}}/console_libraries {{pkg.svc_var_path}}
+ln -sf {{pkg.path}}/consoles {{pkg.svc_var_path}}
